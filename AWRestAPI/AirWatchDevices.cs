@@ -13,12 +13,12 @@ namespace RestAPIApp
         public string Ownership { get; set; }
         public int PlatformId { get; set; }
         public int ModelId { get; set; }
-        public int OperatingSystemId { get; set; }
-        public string Udid { get; set; }
-        public string SerialNumber { get; set; }
-        public string AssetNumber { get; set; }
+        // public int OperatingSystemId { get; set; }
+        // public string Udid { get; set; }
+        // public string SerialNumber { get; set; }
+        // public string AssetNumber { get; set; }
         public string MessageType { get; set; }
-        public string SIM { get; set; }
-        public string ToEmailAddress { get; set; }
+        // public string SIM { get; set; }
+        // public string ToEmailAddress { get; set; }
     }
 }

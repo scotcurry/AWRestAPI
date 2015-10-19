@@ -68,18 +68,26 @@ namespace RestHandlerTests
             if (password == string.Empty)
                 Assert.Fail("Password Not Set");
 
+            // Add basic user
+            /*
             AirWatchUser newUser = new AirWatchUser();
-            newUser.Email = "user@company.com";
-            newUser.FirstName = "First";
-            newUser.LastName = "Name";
+            newUser.Email = "scotcurry@air-watch.com";
+            newUser.FirstName = "Vincent";
+            newUser.LastName = "Curry";
             newUser.LocationGroupID = locationGroupID;
             newUser.MessageType = "Email";
-            newUser.Password = "password";
+            newUser.Password = "AirWatch2@";
             newUser.SecurityType = 2;
             newUser.Status = true;
-            newUser.UserName = "RestUser";
-            newUser.EmailUserName = "EmailUserName";
+            newUser.UserName = "VincentCurry";
+            newUser.EmailUserName = "vcurry";
+            */
 
+            // Add Directory user
+            AirWatchUser newUser = new AirWatchUser();
+            newUser.UserName = "vincent";
+            newUser.Status = true;
+            newUser.SecurityType = 1;
             string userJSON = JsonConvert.SerializeObject(newUser);
 
             NameValueCollection headers = new NameValueCollection();
@@ -99,7 +107,7 @@ namespace RestHandlerTests
                 }
             }
 
-            Assert.AreEqual(returnCode.StatusDescription, "OK");
+            Assert.AreEqual("OK", returnCode.StatusDescription);
         }
 
         [TestMethod]
@@ -124,7 +132,7 @@ namespace RestHandlerTests
             RestHandler restHandler = new RestHandler(awSiteURL);
             IRestResponse returnCode = restHandler.RestGetEndpointBasicAuth("system/admins/search", userName, password, headers);
 
-            Assert.AreEqual(returnCode.StatusDescription, "OK");
+            Assert.AreEqual("OK", returnCode.StatusDescription);
         }
 
         [TestMethod]
@@ -153,17 +161,17 @@ namespace RestHandlerTests
                 Assert.Fail("Not Created User File");
 
             AirWatchDevices deviceToRegister = new AirWatchDevices();
-            deviceToRegister.AssetNumber = "Asset #1";
+            // deviceToRegister.AssetNumber = "Asset #1";
             deviceToRegister.FriendlyName = "Scot's Device";
             deviceToRegister.LocationGroupId = locationGroupID;
             deviceToRegister.MessageType = "Email";
-            deviceToRegister.ModelId = 3;
-            deviceToRegister.OperatingSystemId = 2;
+            deviceToRegister.ModelId = 2;
+            // deviceToRegister.OperatingSystemId = 2;
             deviceToRegister.Ownership = "Corporate";
             deviceToRegister.PlatformId = 2;
-            deviceToRegister.SerialNumber = "124";
-            deviceToRegister.ToEmailAddress = "user@organization.com";
-            deviceToRegister.Udid = "123123123123";
+            // deviceToRegister.SerialNumber = "DLXNV3RZFLMJ";
+            // deviceToRegister.ToEmailAddress = "scotcurry@air-watch.com";
+            // deviceToRegister.Udid = "7BBE62B953C21847AA447919304027C98CCB148C";
 
             string jsonToSend = JsonConvert.SerializeObject(deviceToRegister);
 
