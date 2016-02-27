@@ -15,9 +15,14 @@ namespace RestHandlerTests
     [TestClass]
     public class RestTests
     {
-        // Environment Information
-        private string awServer = string.Empty;
-        private string awTenantName = "aw-tenant-code";
+        /*
+          You can fill in the fields you want to test here.  This also supports a settings.json
+          file that you will need to modify the file information in the TestInitialize section.
+
+          This test also works only with JSON, so if you want to use XML you will need to make 
+          changes to refactor a great deal of the code.
+        */
+        private string awServer = "https://demo.awmdm.com";       
         private string awTenantCode = string.Empty;
         private string userName = string.Empty;
         private string password = string.Empty;
@@ -26,6 +31,7 @@ namespace RestHandlerTests
         // Values used for all tests
         private string acceptTypeName = "Accept";
         private string acceptTypeValue = "application/json";
+        private string awTenantName = "aw-tenant-code";
         private static string createUserFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "createUser.txt");
 
         [ClassInitialize]
@@ -40,18 +46,21 @@ namespace RestHandlerTests
         {
             string documentFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string settingsFile = Path.Combine(documentFolder, "settings.json");
-            string settingsJSON = string.Empty;
-            using (StreamReader sr = new StreamReader(settingsFile))
-            {
-                settingsJSON = sr.ReadToEnd();
-            }
+            if (File.Exists(settingsFile))
+            { 
+                string settingsJSON = string.Empty;
+                using (StreamReader sr = new StreamReader(settingsFile))
+                {
+                    settingsJSON = sr.ReadToEnd();
+                }
 
-            JObject jsonParse = JObject.Parse(settingsJSON);
-            awServer = (string)jsonParse["AirWatchServer"];
-            awTenantCode = (string)jsonParse["Tenant_Code"];
-            userName = (string)jsonParse["UserName"];
-            password = (string)jsonParse["Password"];
-            locationGroupID = (int)jsonParse["LocationGroupID"];
+                JObject jsonParse = JObject.Parse(settingsJSON);
+                awServer = (string)jsonParse["AirWatchServer"];
+                awTenantCode = (string)jsonParse["Tenant_Code"];
+                userName = (string)jsonParse["UserName"];
+                password = (string)jsonParse["Password"];
+                locationGroupID = (int)jsonParse["LocationGroupID"];
+            }
         }
 
         [TestMethod]
