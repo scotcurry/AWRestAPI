@@ -22,10 +22,10 @@ namespace RestHandlerTests
           This test also works only with JSON, so if you want to use XML you will need to make 
           changes to refactor a great deal of the code.
         */
-        private string awServer = "https://demo.awmdm.com";       
-        private string awTenantCode = string.Empty;
-        private string userName = string.Empty;
-        private string password = string.Empty;
+        private string awServer = "https://demo.awmdm.com";
+        private string awTenantCode = "6+uNI3w/kFgA78hSRYpzuIleq4MY6A7WPmo9K9AbM6A=";
+        private string userName = @"airwatchdemo\scurry";
+        private string password = "AirWatch2@";
         private int locationGroupID = 0;
 
         // Values used for all tests
@@ -68,8 +68,6 @@ namespace RestHandlerTests
         {
             if (awServer == string.Empty)
                 Assert.Fail("Server Not Set");
-            if (locationGroupID == 0)
-                Assert.Fail("Location Group Not Set");
             if (awTenantCode == string.Empty)
                 Assert.Fail("Tenant Code Not Set");
             if (userName == string.Empty)
@@ -124,8 +122,6 @@ namespace RestHandlerTests
         {
             if (awServer == string.Empty)
                 Assert.Fail("AirWatch Server Not Set");
-            if (locationGroupID == 0)
-                Assert.Fail("Location Group Not Set");
             if (awTenantCode == string.Empty)
                 Assert.Fail("Tenant Code Not Set");
             if (userName == string.Empty)
