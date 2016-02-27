@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using System.Collections.Generic;
 using System.Collections.Specialized;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestAPIApp;
@@ -9,18 +7,24 @@ using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+/*
+    Required variables:
+        awServer = The AirWatch Server you are going to connect to
+        awTenantCode = The REST API Tenant code that you are using for the tests
+        userName = The AirWatch Username that you are using to login to the REST API service
+        password = The password for the user
+*/
 namespace RestHandlerTests
 {
-
     [TestClass]
     public class RestTests
     {
         // Environment Information
-        private string awServer = string.Empty;
+        private string awServer = "https://demo.awmdm.com/";
         private string awTenantName = "aw-tenant-code";
-        private string awTenantCode = string.Empty;
-        private string userName = string.Empty;
-        private string password = string.Empty;
+        private string awTenantCode = "6+uNI3w/kFgA78hSRYpzuIleq4MY6A7WPmo9K9AbM6A=";
+        private string userName = @"curryware\scurry";
+        private string password = "AirWatch2@";
         private int locationGroupID = 0;
 
         // Values used for all tests
@@ -28,30 +32,22 @@ namespace RestHandlerTests
         private string acceptTypeValue = "application/json";
         private static string createUserFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "createUser.txt");
 
-        [ClassInitialize]
-        public static void ClassInitialize(TestContext context)
-        {
-            if (File.Exists(createUserFile))
-                File.Delete(createUserFile);
-        }
-
         [TestInitialize]
         public void TestInit()
         {
-            string documentFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            string settingsFile = Path.Combine(documentFolder, "settings.json");
-            string settingsJSON = string.Empty;
-            using (StreamReader sr = new StreamReader(settingsFile))
-            {
-                settingsJSON = sr.ReadToEnd();
-            }
+            //string documentFolder = System.Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            //string settingsFile = Path.Combine(documentFolder, "settings.json");
+            //string settingsJSON = string.Empty;
+            //using (StreamReader sr = new StreamReader(settingsFile))
+            //{
+            //    settingsJSON = sr.ReadToEnd();
+            //}
 
-            JObject jsonParse = JObject.Parse(settingsJSON);
-            awServer = (string)jsonParse["AirWatchServer"];
-            awTenantCode = (string)jsonParse["Tenant_Code"];
-            userName = (string)jsonParse["UserName"];
-            password = (string)jsonParse["Password"];
-            locationGroupID = (int)jsonParse["LocationGroupID"];
+            //awServer = (string)jsonParse["AirWatchServer"];
+            //awTenantCode = (string)jsonParse["Tenant_Code"];
+            //userName = (string)jsonParse["UserName"];
+            //password = (string)jsonParse["Password"];
+            //locationGroupID = (int)jsonParse["LocationGroupID"];
         }
 
         [TestMethod]
