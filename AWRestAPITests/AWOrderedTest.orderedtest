@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<OrderedTest name="AWOrderedTest" storage="c:\users\scot\documents\github\awrestapi\awrestapitests\aworderedtest.orderedtest" id="4b892ebe-acff-4364-b56a-e1878a0b8ee4" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestLinks>
+    <TestLink id="a1696e10-4090-6409-661c-ce0b471890f5" name="CheckIfUserExists" storage="bin\debug\awrestapitests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="b22fd10e-7deb-1eed-357c-435ab1f40723" name="TestAirWatchCall" storage="bin\debug\awrestapitests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="68a763e6-5f9c-c469-602e-8292ebba407c" name="TestCreateAirWatchUser" storage="bin\debug\awrestapitests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <TestLink id="8a5e716b-52bf-4e47-8f90-e4e9614fcf65" name="TestRegisterDevice" storage="bin\debug\awrestapitests.dll" type="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestElement, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.ObjectModel, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  </TestLinks>
+</OrderedTest>

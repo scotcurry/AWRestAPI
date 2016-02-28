@@ -9,6 +9,8 @@ using RestSharp;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
+using AWRestAPI;
+
 namespace RestHandlerTests
 {
 
@@ -28,11 +30,22 @@ namespace RestHandlerTests
         private string password = "AirWatch2@";
         private int locationGroupID = 0;
 
+        /*
+          Fields for user creation / lookup /delte functions
+        */
+        private string awUserName = "Vincent";
+        private string awUserPassword = "AirWatch1";
+        private string awEmailAddress = "scotcurry@air-watch.com";
+
         // Values used for all tests
         private string acceptTypeName = "Accept";
         private string acceptTypeValue = "application/json";
         private string awTenantName = "aw-tenant-code";
         private static string createUserFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "createUser.txt");
+        private NameValueCollection headers = new NameValueCollection();
+
+        // Build the AirWatchRESTCalls and set the Authentication, Accept, and Content-Type in the TestInitialize
+        private AirWatchRESTCalls awRestCalls;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
@@ -61,20 +74,22 @@ namespace RestHandlerTests
                 password = (string)jsonParse["Password"];
                 locationGroupID = (int)jsonParse["LocationGroupID"];
             }
+
+            headers.Add(awTenantName, awTenantCode);
+            headers.Add(acceptTypeName, acceptTypeValue);
+            awRestCalls = new AirWatchRESTCalls(headers, userName, password, awServer);
         }
 
         [TestMethod]
-        public void TestCreateAirWatchUser()
+        public void CheckIfUserExists()
         {
-            if (awServer == string.Empty)
-                Assert.Fail("Server Not Set");
-            if (awTenantCode == string.Empty)
-                Assert.Fail("Tenant Code Not Set");
-            if (userName == string.Empty)
-                Assert.Fail("Username Not Set");
-            if (password == string.Empty)
-                Assert.Fail("Password Not Set");
+            AirWatchUser userRecord = awRestCalls.SearchForUser("Scurry", AirWatchRESTCalls.UserSearchType.Username);
+            Assert.IsNotNull(userRecord);
+        }
 
+        [TestMethod]
+        public void TestCreateBasicAirWatchUser()
+        {
             // Add basic user
             /*
             AirWatchUser newUser = new AirWatchUser();
@@ -97,13 +112,9 @@ namespace RestHandlerTests
             newUser.SecurityType = 1;
             string userJSON = JsonConvert.SerializeObject(newUser);
 
-            NameValueCollection headers = new NameValueCollection();
-            headers.Add(awTenantName, awTenantCode);
-            headers.Add(acceptTypeName, acceptTypeValue);
-
             string awSiteURL = awServer;
             RestHandler restHandler = new RestHandler(awSiteURL);
-            IRestResponse returnCode = restHandler.RestPostEndpointBasicAuth("system/users/adduser", userName, password, headers, userJSON);
+            IRestResponse returnCode = restHandler.RestPostEndpointBasicAuth("/API/v1/system/users/adduser", userName, password, headers, userJSON);
             if (returnCode.StatusDescription == "OK")
             {
                 JObject returnedContent = JObject.Parse(returnCode.Content);
@@ -113,29 +124,15 @@ namespace RestHandlerTests
                     sw.WriteLine(Convert.ToString(createdUserId));
                 }
             }
-
             Assert.AreEqual("OK", returnCode.StatusDescription);
         }
 
         [TestMethod]
         public void TestAirWatchCall()
         {
-            if (awServer == string.Empty)
-                Assert.Fail("AirWatch Server Not Set");
-            if (awTenantCode == string.Empty)
-                Assert.Fail("Tenant Code Not Set");
-            if (userName == string.Empty)
-                Assert.Fail("Username Not Set");
-            if (password == string.Empty)
-                Assert.Fail("Password Not Set");
-
-            NameValueCollection headers = new NameValueCollection();
-            headers.Add(awTenantName, awTenantCode);
-            headers.Add(acceptTypeName, acceptTypeValue);
-
             string awSiteURL = awServer;
             RestHandler restHandler = new RestHandler(awSiteURL);
-            IRestResponse returnCode = restHandler.RestGetEndpointBasicAuth("system/admins/search", userName, password, headers);
+            IRestResponse returnCode = restHandler.RestGetEndpointBasicAuth("/API/v1/system/admins/search", userName, password, headers);
 
             Assert.AreEqual("OK", returnCode.StatusDescription);
         }
@@ -143,17 +140,6 @@ namespace RestHandlerTests
         [TestMethod]
         public void TestRegisterDevice()
         {
-            if (awServer == string.Empty)
-                Assert.Fail("AirWatch Server Not Set");
-            if (locationGroupID == 0)
-                Assert.Fail("Location Group Not Set");
-            if (awTenantCode == string.Empty)
-                Assert.Fail("Tenant Code Not Set");
-            if (userName == string.Empty)
-                Assert.Fail("Username Not Set");
-            if (password == string.Empty)
-                Assert.Fail("Password Not Set");
-
             string createdUserID = string.Empty;
             if (File.Exists(createUserFile))
             {
@@ -179,10 +165,6 @@ namespace RestHandlerTests
             // deviceToRegister.Udid = "7BBE62B953C21847AA447919304027C98CCB148C";
 
             string jsonToSend = JsonConvert.SerializeObject(deviceToRegister);
-
-            NameValueCollection headers = new NameValueCollection();
-            headers.Add(awTenantName, awTenantCode);
-            headers.Add(acceptTypeName, acceptTypeValue);
 
             string awSiteURL = awServer;
             RestHandler restHandler = new RestHandler(awSiteURL);
