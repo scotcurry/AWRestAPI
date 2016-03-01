@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="AirWatchDevices.cs" />
     <Compile Include="AirWatchRESTCalls.cs" />
+    <Compile Include="AirWatchRESTCallsHelpers.cs" />
     <Compile Include="AirWatchUser.cs" />
     <Compile Include="AirWatchUsers.cs" />
     <Compile Include="Program.cs" />

@@ -64,5 +64,19 @@ namespace AWRestAPI
             }
             return userToReturn;
         }
+
+        /// <summary>
+        /// Deletes a basic User, when using this method you should check if the user exists and is 
+        /// a basic user.  There is no way to delete AD users.  Currently only supports Username deletion.
+        /// </summary>
+        /// <param name="usersToDelete">A StringCollection of user names to be deleted.
+        ///                             If just one user is to be deleted just one value
+        ///                             in the collection.</param>
+        /// <returns>Returns the REST API return value.  200 means it worked.</returns>
+        public int DeleteUsers(StringCollection usersToDelete)
+        {
+            string jsonToPost = AirWatchRESTCallsHelpers.BuildBulkValuesJSON(usersToDelete);
+            return 0;
+        }
     }
 }
