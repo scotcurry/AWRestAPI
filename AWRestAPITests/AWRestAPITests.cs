@@ -80,11 +80,21 @@ namespace RestHandlerTests
             awRestCalls = new AirWatchRESTCalls(headers, userName, password, awServer);
         }
 
+        bool userForCreateDeleteExists = false;
         [TestMethod]
         public void CheckIfUserExists()
         {
-            AirWatchUser userRecord = awRestCalls.SearchForUser("Scurry", AirWatchRESTCalls.UserSearchType.Username);
-            Assert.IsNotNull(userRecord);
+            AirWatchUser userRecord = awRestCalls.SearchForUser("VincentCurry", AirWatchRESTCalls.UserSearchType.Username);
+            Assert.IsNotNull(userRecord.UserName);
+        }
+
+        [TestMethod]
+        public void DeleteUsers()
+        {
+            StringCollection usersToDelete = new StringCollection();
+            usersToDelete.Add("OtisCurry");
+            usersToDelete.Add("Scurry");
+            int userWasDeleted = awRestCalls.DeleteUsers(usersToDelete);
         }
 
         [TestMethod]

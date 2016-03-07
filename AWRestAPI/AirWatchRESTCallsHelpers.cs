@@ -18,7 +18,7 @@ namespace AWRestAPI
             {
                 if (firstUser == true)
                 {
-                    bulkJSONString += quote + "Value:" + quote + ":[" + quote + currentUser + quote;
+                    bulkJSONString += quote + "Values" + quote + ":[" + quote + currentUser + quote;
                     firstUser = false;
                 }
                 else

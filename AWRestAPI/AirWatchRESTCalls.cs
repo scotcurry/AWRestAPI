@@ -20,6 +20,7 @@ namespace AWRestAPI
         private string password;
         private RestHandler restHandler;
 
+        #region Public Methods
         public AirWatchRESTCalls(NameValueCollection Headers, string UserName, string Password, string baseURL)
         {
             headers = Headers;
@@ -76,7 +77,49 @@ namespace AWRestAPI
         public int DeleteUsers(StringCollection usersToDelete)
         {
             string jsonToPost = AirWatchRESTCallsHelpers.BuildBulkValuesJSON(usersToDelete);
+            string apiEndpoint = "/API/v1/system/users/delete";
+            IRestResponse response = restHandler.RestPostEndpointBasicAuth(apiEndpoint, userName, password, headers, jsonToPost);
+
             return 0;
         }
+
+        /// <summary>
+        /// There are many overloads of this method.  Creates an account based on the fields input.
+        /// </summary>
+        /// <param name="userName">Username of the account</param>
+        /// <param name="password"></param>
+        /// <param name="emailAddress"></param>
+        /// <param name="firstName"></param>
+        /// <param name="lastName"></param>
+        /// <returns></returns>
+        public int CreateBasicUser(string userName, string password, string emailAddress, string firstName, string lastName)
+        {
+            return 0;
+        }
+
+        public int CreateBasicUser(string userName, string password, string emailAddress, string firstName, string lastName, string roleName)
+        {
+            return 0;
+        }
+        #endregion
+
+        #region Private Methods
+
+        private int createUserAllOverLoads(string userName, string password, string emailAddress, string firstName, string lastName, string roleName)
+        {
+            AirWatchUser userToCreate = new AirWatchUser();
+            userToCreate.UserName = userName;
+            userToCreate.Password = password;
+            userToCreate.Email = emailAddress;
+            userToCreate.FirstName = firstName;
+            userToCreate.LastName = lastName;
+
+            if (roleName != null)
+                userToCreate.Role = roleName;
+
+            return 0;
+        }
+        #endregion
+
     }
 }

@@ -19,5 +19,9 @@ namespace AWRestAPI
         public int LocationGroupID { get; set; }
         public string MessageType { get; set; }
         public string EmailUserName { get; set; }
+        public string ContactNumber { get; set; }
+        public string DisplayName { get; set; }
+        public string MessageTemplateId { get; set; }
+        public string Role { get; set; }
     }
 }
